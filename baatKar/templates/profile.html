@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'chat.css' %}">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+{% load account %}
+
+<h2>Current User: <span class="label label-success">{% user_display user %}</span> <span class="label label-danger"><a href="{% url 'account_logout' %}" style="color: inherit; ">Logout</a></span></h2>
+
+<div class="list-group">
+<H2 class="list-group-item active">Avalible users to chat.</H2>
+<ul class="list-group" >
+{% for user in users %}
+    <li class="list-group-item">
+        <h3>{{user }} | {{user.email}} | <small> <a href= {% url 'chatapp:home' user %} target="_blank"> [chat] </a></small></h3>
+        </li>
+{% endfor %}
+    </ul>
+    </div>
+</body>
+</html>
+
