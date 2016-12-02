@@ -50,7 +50,6 @@ INSTALLED_APPS = [
 
 
     'chatapp',
-    'socialauthapp',
 ]
 
 SITE_ID = 1
