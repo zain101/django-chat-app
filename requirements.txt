@@ -1,0 +1,8 @@
+Django==1.10.1
+django-allauth==0.25.2
+django-bootstrap-form==3.2.1
+django-crispy-forms==1.6.1
+oauthlib==2.0.1
+python-openid==2.2.5
+requests==2.12.2
+requests-oauthlib==0.7.0
