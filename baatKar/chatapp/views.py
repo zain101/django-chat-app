@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from allauth.account.decorators import  login_required
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from .models import Chat
 from django.db.models import Q
-from itertools import chain
 
 @login_required
 def profile(request):
@@ -15,7 +14,7 @@ def profile(request):
     }
     return render(request, "profile.html", context)
 
-
+@login_required
 def Home(request, receiver):
     print("Home")
     print("sender: ", request.user)
@@ -39,7 +38,7 @@ def Home(request, receiver):
         c = Chat.objects.filter(user = request.user)
     return render(request, "home.html", {'home': 'active', 'chat': c, 'receiver': receiver})
 
-
+@login_required
 def Post(request):
     if request.method == "POST":
         msg = request.POST.get('msgbox', None)
@@ -56,7 +55,7 @@ def Post(request):
     else:
         return HttpResponse('Request must be POST.')
 
-
+@login_required
 def Messages(request, receiver):
     print("Messages")
     print("sender: ", request.user.username)
@@ -64,9 +63,7 @@ def Messages(request, receiver):
     # c = Chat.objects.filter(user=request.user)
     try:
         c = Chat.objects.filter( Q(user=request.user) |
-                                 # Q(receiver=User.objects.get(username=receiver)) |
                                  Q(user= User.objects.get(username=receiver))
-                                 # Q(receiver= request.user)
                                  )
         c = c.filter(
             Q(receiver=User.objects.get(username=receiver)) |
